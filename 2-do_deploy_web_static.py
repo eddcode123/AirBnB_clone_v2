@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os
-from fabric.api import env, put, run
+from fabric.api import *
 
 env.hosts = ['52.90.15.82', '54.209.142.249']
 
@@ -23,13 +23,13 @@ def do_deploy(archive_path):
     success = False
     try:
         put(archive_path, "/tmp/{}".format(file_name))
-        run("mkdir -p {}".format(folder_path))
-        run("tar -xzf /tmp/{} -C {}".format(file_name, folder_path))
-        run("rm -rf /tmp/{}".format(file_name))
-        run("mv {}web_static/* {}".format(folder_path, folder_path))
-        run("rm -rf {}web_static".format(folder_path))
-        run("rm -rf /data/web_static/current")
-        run("ln -s {} /data/web_static/current".format(folder_path))
+        sudo("mkdir -p {}".format(folder_path))
+        sudo("tar -xzf /tmp/{} -C {}".format(file_name, folder_path))
+        sudo("rm -rf /tmp/{}".format(file_name))
+        sudo("mv -f {}web_static/* {}".format(folder_path, folder_path))
+        sudo("rm -rf {}web_static".format(folder_path))
+        sudo("rm -rf /data/web_static/current")
+        sudo("ln -s {} /data/web_static/current".format(folder_path))
         print('New version deployed!')
         success = True
     except Exception:
