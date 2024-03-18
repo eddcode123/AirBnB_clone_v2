@@ -6,21 +6,18 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_world():
-    """return hello HBNB"""
+def hello_hbnb():
     return "Hello HBNB!"
 
 
 @app.route("/hbnb", strict_slashes=False)
-def hbnb():
-    """return HBNB"""
+def hbnb_page():
     return "HBNB"
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def text(text):
-    """return text given"""
-    return "C {}".format(text.replace("_", " "))
+def c_text(text):
+    return 'C ' + text.replace('_', ' ')
 
 
 if __name__ == '__main__':
